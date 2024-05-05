@@ -1,10 +1,21 @@
 #include <iostream>
 
-#include <mtccore/format.h>
+#include <mtccore/elffile.h>
 
 int main(int argc, char *argv[]) {
-    int a = 2;
-    std::cout << MTC::formatTextN("%1, %2, %3", "12", a, 2.0) << std::endl;
-    // std::cout << MTC::Private::to_string_impl("32") << std::endl;
+    if (argc < 2) {
+        std::cout << "mtcc <elf file>" << std::endl;
+        return 0;
+    }
+
+    MTC::ElfFile elf;
+    if (!elf.load(argv[1])) {
+        std::cerr << elf.errorMessage() << std::endl;
+        return -1;
+    }
+
+    for (int i = 0; i < elf.sectionHeaderCount(); ++i) {
+        std::cout << elf.sectionHeader(i).name() << std::endl;
+    }
     return 0;
 }

@@ -15,4 +15,19 @@ namespace MTC {
         return result;
     }
 
+    std::vector<std::string> extractNullSeperatedStrings(const char *data, size_t size) {
+        std::vector<std::string> res;
+        std::string part;
+        for (size_t i = 0; i < size; ++i) {
+            const auto &ch = data[i];
+            if (ch == '\0') {
+                res.push_back(part);
+                part.clear();
+                continue;
+            }
+            part += ch;
+        }
+        return res;
+    }
+
 }

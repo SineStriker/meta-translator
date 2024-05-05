@@ -22,6 +22,8 @@ namespace MTC {
             std::ostringstream oss;
             oss << std::noshowpoint << t;
             return oss.str();
+        } else if constexpr (std::is_same_v<T2, std::filesystem::path>) {
+            return t.string();
         } else {
             return std::string(t);
         }
@@ -33,6 +35,8 @@ namespace MTC {
     auto formatTextN(const std::string &format, Args &&...args) {
         return formatText(format, {anyToString(std::forward<decltype(args)>(args))...});
     }
+
+    std::vector<std::string> extractNullSeperatedStrings(const char *data, size_t size);
 
 }
 
