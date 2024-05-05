@@ -8,6 +8,7 @@ mtc_add_library(${PROJECT_NAME} STATIC
     SOURCES ${_src}
     FEATURES cxx_std_17
     LINKS
+    DEFINES ELF_CLASS=ELFCLASS64
     INCLUDE_PRIVATE *
     PREFIX MTC_CORE
 )
